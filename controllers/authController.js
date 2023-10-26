@@ -1,12 +1,14 @@
-
-const User = require('../models/user');
-const session = require('express-session');
+const User = require("../models/user");
+const session = require("express-session");
 
 exports.register = async (req, res) => {
   try {
     const { username, password } = req.body;
-    await User.create({ username, password });
-    res.redirect('/login');
+    const newUser = await User.create({ username, password });
+
+    // Log the user in immediately after registration
+    req.session.user = newUser;
+    res.redirect("/dashboard"); // Redirect to dashboard or a suitable page
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -18,11 +20,11 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ where: { username } });
 
     if (!user || !(await user.validPassword(password))) {
-      return res.status(401).send('Incorrect username or password');
+      return res.status(401).send("Incorrect username or password");
     }
 
     req.session.user = user;
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -30,6 +32,6 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/');
+    res.redirect("/");
   });
 };

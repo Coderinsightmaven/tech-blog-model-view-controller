@@ -1,30 +1,33 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../sequelize");
 
 class User extends Model {}
 
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    // ... other attributes like email, password
   },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  // ... other attributes like email, password
-}, {
-  sequelize,
-  timestamps: false,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'user'
-});
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "user",
+  }
+);
 
 module.exports = User;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 // Hook to hash password before saving a User
 User.beforeSave(async (user) => {
@@ -34,7 +37,7 @@ User.beforeSave(async (user) => {
 });
 
 // Method to validate password
-User.prototype.validPassword = async function(password) {
+User.prototype.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
