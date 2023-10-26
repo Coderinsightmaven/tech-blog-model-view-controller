@@ -1,0 +1,29 @@
+{{!-- Extend the main layout --}}
+{{#extend "layouts/main"}}
+
+{{#content "body"}}
+  <h1>Welcome to the Tech Blog!</h1>
+
+  {{!-- Blog posts will be listed here --}}
+  {{#each posts as |post|}}
+    <div class="post">
+      <h2>{{post.title}}</h2>
+      <p>{{post.content}}</p>
+    </div>
+  {{/each}}
+
+  {{!-- Navigation links and login form --}}
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <!-- Add more links as needed -->
+    </ul>
+  </nav>
+
+  <section id="login">
+    <!-- Login form goes here -->
+  </section>
+{{/content}}
+
+{{/extend}}
