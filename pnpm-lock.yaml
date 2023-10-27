@@ -8,6 +8,9 @@ dependencies:
   bcrypt:
     specifier: ^5.0.1
     version: 5.1.1
+  connect-session-sequelize:
+    specifier: ^7.1.7
+    version: 7.1.7(sequelize@6.33.0)
   dotenv:
     specifier: ^10.0.0
     version: 10.0.0
@@ -177,6 +180,18 @@ packages:
 
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    dev: false
+
+  /connect-session-sequelize@7.1.7(sequelize@6.33.0):
+    resolution: {integrity: sha512-Wqq7rg0w+9bOVs6jC0nhZnssXJ3+iKNlDVWn2JfBuBPoY7oYaxzxfBKeUYrX6dHt3OWEWbZV6LJvapwi76iBQQ==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      sequelize: '>= 6.1.0'
+    dependencies:
+      debug: 4.3.4
+      sequelize: 6.33.0(mysql2@2.3.3)
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /console-control-strings@1.1.0:

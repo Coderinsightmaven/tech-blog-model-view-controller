@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Tech Blog</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Sign Up</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Welcome to the Tech Blog</h1>
+      {{#if posts.length}}
+        <section>
+          {{#each posts}}
+            <article>
+              <h2>{{this.title}}</h2>
+              <p>{{this.summary}}</p>
+              <!-- Add more post details here -->
+            </article>
+          {{/each}}
+        </section>
+      {{else}}
+        <p>No posts to display.</p>
+      {{/if}}
+    </main>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,31 +1,35 @@
-const express = require('express');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
-const path = require('path');
+const express = require("express");
+const exphbs = require("express-handlebars");
+const sequelize = require("./config/connection"); // Adjust the path as necessary
+const Post = require("./models/post"); // Importing the model
+const User = require("./models/user"); // Importing the model
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ /* Specify helpers if any */ });
+// Set up Handlebars view engine
+app.engine("handlebars", exphbs());
+app.set("view engine", "handlebars");
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'super secret',
-  resave: false,
-  saveUninitialized: true
-}));
+// Serve static files
+app.use(express.static("public"));
 
-// Inform Express.js on which template engine to use
-app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs');
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database & tables created!");
+    app.get("/", async (req, res) => {
+      try {
+        const posts = await Post.findAll(); // Adjust based on your actual model and method
+        res.render("home", { posts });
+      } catch (error) {
+        res.status(500).send("Error in fetching posts");
+      }
+    });
 
-// Routes
-app.use(require('./routes'));
+    // ... rest of your server setup and routes
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+    app.listen(3000, () => {
+      console.log("Server running on http://localhost:3000");
+    });
+  })
+  .catch((err) => console.error("Error in database sync", err));
