@@ -6,18 +6,25 @@ const Post = require("./models/post"); // Importing the model
 const authRoutes = require("./routes/auth");
 
 const app = express();
+express.json();
+app.use(express.urlencoded({ extended: true }));
+
+const session = require("express-session");
+
+// Session configuration
+app.use(
+  session({
+    secret: "qumI5JVX+wsxoaYD4UygPSP2gYM", // Replace with a real secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using https
+  })
+);
 
 // Set up Handlebars view engine
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
-
-// Middleware for parsing request bodies
-app.use(express.json()); // For parsing application/json
-app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
-
-// Routing
 app.use("/auth", authRoutes);
-
 // Serve static files
 app.use(express.static("public"));
 
@@ -40,8 +47,16 @@ sequelize
     });
 
     // Sign-in route
-    app.get("/login", (req, res) => {
+    app.get("/signin", (req, res) => {
       res.render("signin");
+    });
+
+    app.get("/dashboard", (req, res) => {
+      if (req.session.userId) {
+        res.render("dashboard");
+      } else {
+        res.redirect("/signin");
+      }
     });
 
     app.listen(3000, () => {
