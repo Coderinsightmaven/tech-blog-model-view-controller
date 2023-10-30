@@ -3,7 +3,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech Blog</title>
-    <!-- Include your CSS and other head elements here -->
+    <style>
+      .form-box { /* Existing styles */ display: flex; flex-direction: column;
+      align-items: center; } .form-box form > div { display: flex;
+      flex-direction: column; align-items: center; width: 100%; /* Ensure full
+      width for the container */ } .form-box form > div > label, .form-box form
+      > div > input, .form-box form > div > button { width: auto; /* Keep the
+      default width */ margin: 0 auto; /* Auto margins for horizontal centering
+      */ }
+
+    </style>
   </head>
   <body>
     {{{body}}}

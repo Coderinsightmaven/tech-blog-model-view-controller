@@ -1,12 +1,18 @@
-<h1>Sign Up</h1>
-<form action="/auth/signup" method="post">
-  <div>
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" required />
+<div class="form-container">
+  <div class="form-box">
+    <h1>Sign Up</h1>
+    <form action="/auth/signup" method="post">
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <div class="button-container">
+        <button type="submit">Sign In</button>
+      </div>
+    </form>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-  </div>
-  <button type="submit">Sign Up</button>
-</form>
+</div>
