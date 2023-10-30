@@ -4,7 +4,8 @@
   "description": "A simple CMS-style blog site",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
